@@ -27,7 +27,6 @@ fetch("http://localhost:3000/api/products")
   })
   .then(function (array) {
     displayCard(array);
-    console.log(array);
   })
 
   .catch(function (err) {
