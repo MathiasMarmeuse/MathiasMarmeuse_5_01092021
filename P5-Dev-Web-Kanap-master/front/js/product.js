@@ -61,7 +61,7 @@ function createCartItem() {
 
   // Get selected quantity
   let input = document.getElementById("quantity");
-  let selectedQuantity = input.value;
+  let selectedQuantity = parseInt(input.value);
 
   if (!(selectedColor == "" || selectedQuantity == 0)) {
     // Create object
@@ -71,12 +71,28 @@ function createCartItem() {
       quantity: selectedQuantity,
     };
 
-    // add to local storage
     var cart = JSON.parse(localStorage.getItem("cart"));
+    var isObjectAlreadyInCart = false;
+
+    // init cart if it doesn't already exist in local storage
     if (cart == null) {
       cart = [];
+    } else {
+      // if product already in cart, increase quantity instead of creating new object
+      cart.forEach((element) => {
+        if (element.id == cartItem.id && element.color == cartItem.color) {
+          element.quantity += cartItem.quantity;
+          isObjectAlreadyInCart = true;
+        }
+      });
     }
-    cart.push(cartItem);
+
+    // create new object if product not already in cart
+    if (isObjectAlreadyInCart == false) {
+      cart.push(cartItem);
+    }
+
+    // push cart to local storage
     localStorage.setItem("cart", JSON.stringify(cart));
   } else {
     window.alert("Merci de renseigner tous les champs");
