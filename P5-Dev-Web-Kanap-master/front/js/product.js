@@ -78,7 +78,7 @@ function createCartItem() {
     if (cart == null) {
       cart = [];
     } else {
-      // if product already in cart, increase quantity instead of creating new object
+      // increase quantity instead of creating new object if product already in cart
       cart.forEach((element) => {
         if (element.id == cartItem.id && element.color == cartItem.color) {
           element.quantity += cartItem.quantity;
